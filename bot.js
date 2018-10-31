@@ -32,6 +32,7 @@ client.on('message', message => {
     if(spl[0] === "kick") {
      console.log("A KICK??");
      let kUser = message.guild.member(message.mentions.users.first());
+     console.log(message.mentions);
      console.log(kUser);
      if(!kUser) return message.channel.send("Can't find user!");
      let kReason = spl[2];
