@@ -39,43 +39,18 @@ client.on('message', message => {
      if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
+     let kickEmbed = new Discord.RichEmbed()
+     .setDescription("~Kick~")
+     .setColor("#e56b00")
+     .addField("Kicked User", `${kUser} with ID ${kUser.id}`)
+     .addField("Kicked By", `<@${message.author.id}> with ID ${message.author.id}`)
+     .addField("Kicked In", message.channel)
+     .addField("Tiime", message.createdAt)
+     .addField("Reason", kReason);
 
+        
      message.guild.member(kUser).kick(kReason);
-     kickChannel.send({embed: {
-    color: 3447003,
-    author: {
-      name: client.user.username,
-      icon_url: client.user.avatarURL
-    },
-    title: "~Kick~",
-    description: "Oh no! Someone got kicked!",
-    fields: [{
-        name: "Kicked User",
-        value: '${kUser} with ID ${kUser.id}'
-      },
-      {
-        name: "Kicked By",
-        value: '<@${message.author.id}> with ID ${message.author.id}'
-      },
-      {
-        name: "Kicked In",
-        value: message.channel
-      },
-      {
-        name: "Reason",
-        value: kReason
-      },
-      {
-        name: "Time",
-        value: message.createdAt
-      }
-    ],
-    timestamp: new Date(),
-    footer: {
-      icon_url: client.user.avatarURL,
-    }
-  }
-});
+     kickChannel.send({kickEmbed});
     }
     if(spl[0] === "ban") {
      let bUser = message.guild.member(message.mentions.users.first());
