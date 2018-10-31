@@ -39,9 +39,10 @@ client.on('message', message => {
      if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
-     var kickEmbed = new RichEmbed()
-     .setDescription("~Kick~")
-     .setColor("#e56b00")
+     const kickEmbed = new Discord.RichEmbed()
+     .setTitle("~Kick~")
+     .setDescription("Oh no! Someone got kicked!")
+     .setColor("0x00AE86")
      .addField("Kicked User", '${kUser} with ID ${kUser.id}')
      .addField("Kicked By", '<@${message.author.id}> with ID ${message.author.id}')
      .addField("Kicked In", message.channel)
@@ -50,6 +51,7 @@ client.on('message', message => {
 
         
      message.guild.member(kUser).kick(kReason);
+     console.log(kUser, kReason)
      kickChannel.send({kickEmbed});
     }
     if(spl[0] === "ban") {
@@ -67,7 +69,8 @@ client.on('message', message => {
      .addField("Banned In", message.channel)
      .addField("Time", message.createdAt)
      .addField("Reason", bReason);
-
+     .setTimestamp()
+        
      let incidentchannel = message.guild.channels.find('name', "incidents");
      if(!incidentchannel) return message.channel.send("Can't find incidents channel.");
 
