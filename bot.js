@@ -34,28 +34,26 @@ client.on('message', async message => {
         name: "muted",
         color: "#000000",
         permissions:[]
-       })
-      message.guild.channels.forEach(async (channel, id) => {
+       });
+       message.guild.channels.forEach(async (channel, id) => {
         await channel.overwritePermissions(muterole, {
           SEND_MESSAGES: false,
           ADD_REACTIONS: false
-       });
-      }
-    }catch(e){
+        });
+       }
+      }catch(e){
       console.log(e.stack);
-    }
-  }
-  //end of create role
-  let mutetime = spl[2];
-  if(!mutetime) return message.reply("You didn't specify a time!");
+      };
+      let mutetime = spl[2];
+      if(!mutetime) return message.reply("You didn't specify a time!");
 
-  await(tomute.addRole(muterole.id));
-  message.reply(`<@${tomute.id}> has been muted for ${mutetime*60000}`);
+      await(tomute.addRole(muterole.id));
+      message.reply(`<@${tomute.id}> has been muted for ${mutetime*60000}`);
 
-  setTimeout(function(){
-    tomute.removeRole(muterole.id);
-    message.channel.send(`<@${tomute.id}> has been unmuted!`);
-  }, mutetime*60000);
+      setTimeout(function(){
+       tomute.removeRole(muterole.id);
+       message.channel.send(`<@${tomute.id}> has been unmuted!`);
+      }, mutetime*60000);
     }
     if(spl[0] === "kick") {
      console.log("A KICK??");
