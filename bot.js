@@ -15,19 +15,20 @@ client.on('message', message => {
     if(message.author.bot) return;
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
+    const spl = res.split(" ")
     if(res!== "b!") return;
     const mainmess = mes.substr(2);
     if(mainmess === "ping") {
      message.reply("Pong!");
     }
-    if(mainmess === "mute") {
+    if(spl[0] === "mute") {
      let mute_role = message.guild.roles.find("name", "Mute"); // this is where you can replace the role name
      let member = message.mentions.members.first();
      member.addRole(mute_role); // <- this assign the role
      setTimeout(() => {member.removeRole(mute_role);}, 60 * 1000);
      message.say("Forcechockes ${member} for 60 seconds.");
     }
-    if(mainmess === "kick") {
+    if(spl[0] === "kick") {
      var member= message.mentions.members.first();
         // Kick
         member.kick().then((member) => {
