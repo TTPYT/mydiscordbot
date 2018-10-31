@@ -11,7 +11,7 @@ client.on('ready', () => {
  
 
 client.on('message', message => { 
-    console.log(message)
+    console.log(message.content)
     if(message.author.bot) return;
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
@@ -29,6 +29,7 @@ client.on('message', message => {
      message.say("Forcechockes ${member} for 60 seconds.");
     }
     if(spl[0] === "kick") {
+     console.log("A KICK??")
      var member= message.mentions.members.first();
         // Kick
         member.kick().then((member) => {
