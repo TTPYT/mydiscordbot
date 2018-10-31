@@ -23,11 +23,39 @@ client.on('message', message => {
     }
     console.log(spl,spl[0])
     if(spl[0] === "mute") {
-     let mute_role = message.guild.roles.find("name", "Mute"); // this is where you can replace the role name
-     let member = message.mentions.members.first();
-     member.addRole(mute_role); // <- this assign the role
-     setTimeout(() => {member.removeRole(mute_role);}, 60 * 1000);
-     message.say("Forcechockes ${member} for 60 seconds.");
+     let tomute = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+     if(!tomute) return message.reply("Couldn't find user.");
+     if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
+     let muterole = message.guild.roles.find(`name`, "muted");
+     if(!muterole){
+      try{
+       muterole = await message.guild.createRole({
+        name: "muted",
+        color: "#000000",
+        permissions:[]
+       })
+      message.guild.channels.forEach(async (channel, id) => {
+        await channel.overwritePermissions(muterole, {
+          SEND_MESSAGES: false,
+          ADD_REACTIONS: false
+        });
+      });
+      }catch(e){
+       console.log(e.stack);
+    }
+  }
+  //end of create role
+  let mutetime = spl[2];
+  if(!mutetime) return message.reply("You didn't specify a time!");
+
+  await(tomute.addRole(muterole.id));
+  message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
+
+  setTimeout(function(){
+    tomute.removeRole(muterole.id);
+    message.channel.send(`<@${tomute.id}> has been unmuted!`);
+  }, ms(mutetime));
+
     }
     if(spl[0] === "kick") {
      console.log("A KICK??");
