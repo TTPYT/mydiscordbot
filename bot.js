@@ -33,6 +33,13 @@ client.on('message', message => {
      console.log("A KICK??")
      var member= message.mentions.members.first();
         // Kick
+        member.user.kick().then((member) => {
+            // Successmessage
+            message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");
+        }).catch(() => {
+             // Failmessage
+            message.channel.send("Access Denied");
+        });
      console.log(member)
     }
 });
