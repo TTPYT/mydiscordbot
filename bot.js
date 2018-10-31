@@ -21,6 +21,7 @@ client.on('message', message => {
     if(mainmess === "ping") {
      message.reply("Pong!");
     }
+    console.log(spl,spl[0])
     if(spl[0] === "mute") {
      let mute_role = message.guild.roles.find("name", "Mute"); // this is where you can replace the role name
      let member = message.mentions.members.first();
