@@ -15,7 +15,7 @@ client.on('ready', () => {
 client.on('message', message => { 
     console.log(message.content)
     if(message.author.bot) return;
-    if(message.content.indexOf("b1").toLowerCase() !== 0) return;
+    if(message.content.indexOf("b1") !== 0) return;
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     if(command === "ping") {
