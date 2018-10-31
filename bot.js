@@ -45,25 +45,15 @@ client.on('message', async message => {
     }
   }
   let mutetime = spl[2];
-  const tomute
 
-    toMute.addRole(muterole);
+    tomute.addRole(muterole);
     const MUTE_TIME = mutetime * 1000;
     setTimeout(() => {
         userToMute.removeRole(muteRole);
     }, MUTE_TIME);
 
-    message.channel.send(`*${message.author.username} forcechockes ${toMute} for ${MUTE_TIME / 60} seconds*`);
+    message.channel.send(`*${message.author.username} forcechockes ${tomute} for ${MUTE_TIME / 60} seconds*`);
     return;
-
-  await(tomute.addRole(muterole.id));
-  message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
-
-  setTimeout(function(){
-    tomute.removeRole(muterole.id);
-    message.channel.send(`<@${tomute.id}> has been unmuted!`);
-  });
-
     }
     if(spl[0] === "kick") {
      console.log("A KICK??");
