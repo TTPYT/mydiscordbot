@@ -63,21 +63,49 @@ client.on('message', message => {
      if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
      if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
 
-     let banEmbed = new Discord.RichEmbed()
-     .setDescription("~Ban~")
-     .setColor("#bc0000")
-     .addField("Banned User", '${bUser} with ID ${bUser.id}')
-     .addField("Banned By", '<@${message.author.id}> with ID ${message.author.id}')
-     .addField("Banned In", message.channel)
-     .addField("Time", message.createdAt)
-     .addField("Reason", bReason)
-     .setTimestamp();
+     const embed = {
+  "title": "~Ban~",
+  "description": "Oh no! Someone got banned!",
+  "color": 4903271,
+  "footer": {
+    "text": "Made by my man T1m#7219"
+  },
+  "author": {
+    "name": "Boneless Water",
+    "icon_url": "https://cdn.discordapp.com/attachments/314470306703998979/507223045136449536/52JC3VVE.png"
+  },
+  "fields": [
+    {
+      "name": "Kicked User",
+      "value": "${kUser} with ID ${kUser.id}"
+    },
+    {
+      "name": "Kicked By",
+      "value": "<@${message.author.id}> with ID ${message.author.id}"
+    },
+    {
+      "name": "Kicked In",
+      "value": "${message.channel}",
+      "inline": true
+    },
+    {
+      "name": "Time",
+      "value": "${message.createdAt}",
+      "inline": true
+    },
+    {
+      "name": "Reason",
+      "value": "${kReason}",
+      "inline": true
+    }
+  ]
+};
         
      let incidentchannel = message.guild.channels.find('name', "incidents");
      if(!incidentchannel) return message.channel.send("Can't find incidents channel.");
 
      message.guild.member(bUser).ban(bReason);
-     incidentchannel.send(banEmbed);
+     incidentchannel.send({ embed });
 
 
      return;
