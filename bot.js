@@ -23,7 +23,7 @@ client.on('message', async message => {
     }
     console.log(spl,spl[0])
     if(spl[0] === "mute") {
-     let tomute = message.guild.member(message.mentions.users.first();
+     let tomute = message.guild.member(message.mentions.users.first());
      if(!tomute) return message.reply("Couldn't find user.");
      if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
      let muterole = message.guild.roles.find("name", "muted");
