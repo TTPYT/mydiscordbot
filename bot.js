@@ -39,7 +39,7 @@ client.on('message', message => {
      if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
-     var kickEmbed = new Discord.RichEmbed()
+     var kickEmbed = new RichEmbed()
      .setDescription("~Kick~")
      .setColor("#e56b00")
      .addField("Kicked User", '${kUser} with ID ${kUser.id}')
