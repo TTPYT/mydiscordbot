@@ -18,6 +18,8 @@ client.on('message', message => {
     if(message.content.indexOf("b1").toLowerCase() !== 0) return;
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
+    if(command === "ping") {
+     message.reply("Pong!")
     if(command === "kick") {
         if(!message.member.roles.some(r=>["Administrator", "Moderator"].includes(r.name)) )
             return message.reply("Sorry, you don't have permissions to use this!");
@@ -38,8 +40,8 @@ client.on('message', message => {
     
     // Now, time for a swift kick in the nuts!
     await member.kick(reason)
-      .catch(error => message.reply(`Sorry ${message.author} I couldn't kick because of : ${error}`));
-    message.reply(`${member.user.tag} has been kicked by ${message.author.tag} because: ${reason}`);
+      .catch(error => message.reply("Sorry ${message.author} I couldn't kick because of : ${error}"));
+    message.reply("${member.user.tag} has been kicked by ${message.author.tag} because: ${reason}");
 
     }
     if(command === "ban") {
@@ -58,8 +60,8 @@ client.on('message', message => {
     if(!reason) reason = "No reason provided";
     
     await member.ban(reason)
-      .catch(error => message.reply(`Sorry ${message.author} I couldn't ban because of : ${error}`));
-    message.reply(`${member.user.tag} has been banned by ${message.author.tag} because: ${reason}`);
+      .catch(error => message.reply("Sorry ${message.author} I couldn't ban because of : ${error}"));
+    message.reply("${member.user.tag} has been banned by ${message.author.tag} because: ${reason}");
     }
 });
 
