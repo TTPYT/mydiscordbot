@@ -15,10 +15,11 @@ client.on('ready', () => {
 client.on('message', message => { 
     console.log(message)
     if(message.author.bot) return;
-    if(message.content.indexOf("b1") !== 0) return;
-    const args = message.content.slice(2).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    if(command === "ping") {
+    const mes = message.content.toLowerCase();
+    const res = mes.substring(0, 2);
+    if(res!== "b!") return;
+    const mainmess = mes.substr(2);
+    if(mainmess === "ping") {
      message.reply("Pong!");
     }
     
