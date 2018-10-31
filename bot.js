@@ -39,22 +39,47 @@ client.on('message', message => {
      if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
-     const kickEmbed = new Discord.RichEmbed()
-     kickEmbed.setAuthor("Boneless Water", client.user.avatarURL);
-     kickEmbed.setTitle("~Kick~");
-     kickEmbed.setDescription("Oh no! Someone got kicked!");
-     kickEmbed.setColor(0x00AE86);
-     kickEmbed.addField("Kicked User", '${kUser} with ID ${kUser.id}');
-     kickEmbed.addField("Kicked By", '<@${message.author.id}> with ID ${message.author.id}');
-     kickEmbed.addField("Kicked In", message.channel);
-     kickEmbed.addField("Time", message.createdAt);
-     kickEmbed.addField("Reason", kReason);
-     kickEmbed.setTimestamp();
-     kickEmbed.setFooter("Made by my main man T1m#7219");
+     const embed = {
+  "title": "~Ban~",
+  "description": "Oh no! Someone got banned!",
+  "color": 4903271,
+  "footer": {
+    "text": "Made by my man T1m#7219"
+  },
+  "author": {
+    "name": "Boneless Water",
+    "icon_url": "https://cdn.discordapp.com/attachments/314470306703998979/507223045136449536/52JC3VVE.png"
+  },
+  "fields": [
+    {
+      "name": "Kicked User",
+      "value": "${kUser} with ID ${kUser.id}"
+    },
+    {
+      "name": "Kicked By",
+      "value": "<@${message.author.id}> with ID ${message.author.id}"
+    },
+    {
+      "name": "Kicked In",
+      "value": "${message.channel}",
+      "inline": true
+    },
+    {
+      "name": "Time",
+      "value": "${message.createdAt}",
+      "inline": true
+    },
+    {
+      "name": "Reason",
+      "value": "${kReason}",
+      "inline": true
+    }
+  ]
+};
         
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
-     kickChannel.send(kickEmbed);
+     kickChannel.send({ embed });
     }
     if(spl[0] === "ban") {
      let bUser = message.guild.member(message.mentions.users.first());
