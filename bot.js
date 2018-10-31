@@ -10,7 +10,7 @@ client.on('ready', () => {
 
  
 
-client.on('message', message => { 
+client.on('message', async(message) => { 
     console.log(message.content)
     if(message.author.bot) return;
     const mes = message.content.toLowerCase();
