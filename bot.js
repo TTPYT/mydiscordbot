@@ -40,8 +40,8 @@ client.on('message', message => {
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
      const embed = {
-  "title": "~Ban~",
-  "description": "Oh no! Someone got banned!",
+  "title": "~Kick~",
+  "description": "Oh no! Someone got kicked!",
   "color": 4903271,
   "footer": {
     "text": "Made by my man T1m#7219"
@@ -90,7 +90,7 @@ client.on('message', message => {
 
      const embed = {
   "title": "~Ban~",
-  "description": "Oh no! Someone got banned!",
+  "description": "Oops! That's a ban!",
   "color": 4903271,
   "footer": {
     "text": "Made by my man T1m#7219"
@@ -101,26 +101,26 @@ client.on('message', message => {
   },
   "fields": [
     {
-      "name": "Kicked User",
-      "value": "${kUser} with ID ${kUser.id}"
+      "name": "Banned User",
+      "value": `${bUser} with ID ${bUser.id}`
     },
     {
-      "name": "Kicked By",
-      "value": "<@${message.author.id}> with ID ${message.author.id}"
+      "name": "Banned By",
+      "value": `<@${message.author.id}> with ID ${message.author.id}`
     },
     {
-      "name": "Kicked In",
-      "value": "${message.channel}",
+      "name": "Bannd In",
+      "value": `${message.channel}`,
       "inline": true
     },
     {
       "name": "Time",
-      "value": "${message.createdAt}",
+      "value": `${message.createdAt}`,
       "inline": true
     },
     {
       "name": "Reason",
-      "value": "${kReason}",
+      "value": `${bReason}`,
       "inline": true
     }
   ]
