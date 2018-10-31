@@ -26,7 +26,7 @@ client.on('message', async message => {
      let tomute = message.guild.member(message.mentions.users.first());
      if(!tomute) return message.reply("Couldn't find user.");
      if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
-     let muterole = message.guild.roles.find(`name`, "muted");
+     let muterole = message.guild.roles.find(`name`, "Muted");
      if(!muterole){
       try{
        muterole = await message.guild.createRole({
@@ -44,9 +44,17 @@ client.on('message', async message => {
        console.log(e.stack);
     }
   }
-  //end of create role
   let mutetime = spl[2];
-  if(!mutetime) return message.reply("You didn't specify a time!");
+  const tomute
+
+    toMute.addRole(muterole);
+    const MUTE_TIME = mutetime * 1000;
+    setTimeout(() => {
+        userToMute.removeRole(muteRole);
+    }, MUTE_TIME);
+
+    message.channel.send(`*${message.author.username} forcechockes ${toMute} for ${MUTE_TIME / 60} seconds*`);
+    return;
 
   await(tomute.addRole(muterole.id));
   message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
