@@ -30,8 +30,9 @@ client.on('message', message => {
      message.say("Forcechockes ${member} for 60 seconds.");
     }
     if(spl[0] === "kick") {
-     console.log("A KICK??")
+     console.log("A KICK??");
      let kUser = message.guild.member(message.mentions.users.first());
+     console.log(kUser);
      if(!kUser) return message.channel.send("Can't find user!");
      let kReason = spl[2];
      if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
