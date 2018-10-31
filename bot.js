@@ -40,15 +40,17 @@ client.on('message', message => {
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
      const kickEmbed = new Discord.RichEmbed()
+     .setAuthor("Boneless Water", client.user.avatarURL)
      .setTitle("~Kick~")
      .setDescription("Oh no! Someone got kicked!")
-     .setColor("0x00AE86")
+     .setColor(0x00AE86)
      .addField("Kicked User", '${kUser} with ID ${kUser.id}')
      .addField("Kicked By", '<@${message.author.id}> with ID ${message.author.id}')
      .addField("Kicked In", message.channel)
      .addField("Time", message.createdAt)
      .addField("Reason", kReason)
-     .setTimestamp();
+     .setTimestamp()
+     .setFooter("Made by my main man T1m#7219");
         
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
