@@ -27,6 +27,17 @@ client.on('message', message => {
      setTimeout(() => {member.removeRole(mute_role);}, 60 * 1000);
      message.say("Forcechockes ${member} for 60 seconds.");
     }
+    if(mainmess === "kick") {
+     var member= message.mentions.members.first();
+        // Kick
+        member.kick().then((member) => {
+            // Successmessage
+            message.channel.send(":wave: " + member.displayName + " has been successfully kicked :point_right: ");
+        }).catch(() => {
+             // Failmessage
+            message.channel.send("Access Denied");
+        });
+    }
 });
 
  
