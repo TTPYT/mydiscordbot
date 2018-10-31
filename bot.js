@@ -54,7 +54,7 @@ client.on('message', message => {
         
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
-     kickChannel.send({kickEmbed});
+     kickChannel.send(kickEmbed);
     }
     if(spl[0] === "ban") {
      let bUser = message.guild.member(message.mentions.users.first());
