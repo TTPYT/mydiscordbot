@@ -47,8 +47,8 @@ client.on('message', message => {
      .addField("Kicked By", '<@${message.author.id}> with ID ${message.author.id}')
      .addField("Kicked In", message.channel)
      .addField("Time", message.createdAt)
-     .addField("Reason", kReason);
-
+     .addField("Reason", kReason)
+     .setTimestamp();
         
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
@@ -68,8 +68,8 @@ client.on('message', message => {
      .addField("Banned By", '<@${message.author.id}> with ID ${message.author.id}')
      .addField("Banned In", message.channel)
      .addField("Time", message.createdAt)
-     .addField("Reason", bReason);
-     .setTimestamp()
+     .addField("Reason", bReason)
+     .setTimestamp();
         
      let incidentchannel = message.guild.channels.find('name', "incidents");
      if(!incidentchannel) return message.channel.send("Can't find incidents channel.");
