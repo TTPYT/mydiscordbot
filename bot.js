@@ -23,37 +23,39 @@ client.on('message', async message => {
     }
     console.log(spl,spl[0])
     if(spl[0] === "mute") {
-     let tomute = message.guild.member(message.mentions.users.first());
-     if(!tomute) return message.reply("Couldn't find user.");
-     if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
-     let muterole = message.guild.roles.find(`name`, "Muted");
-     if(!muterole){
-      try{
-       muterole = await message.guild.createRole({
-        name: "Muted",
+     llet tomute = message.guild.member(message.mentions.users.first();
+  if(!tomute) return message.reply("Couldn't find user.");
+  if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
+  let muterole = message.guild.roles.find(`name`, "muted");
+  //start of create role
+  if(!muterole){
+    try{
+      muterole = await message.guild.createRole({
+        name: "muted",
         color: "#000000",
         permissions:[]
-       })
+      })
       message.guild.channels.forEach(async (channel, id) => {
         await channel.overwritePermissions(muterole, {
           SEND_MESSAGES: false,
           ADD_REACTIONS: false
         });
       });
-      }catch(e){
-       console.log(e.stack);
+    }catch(e){
+      console.log(e.stack);
     }
   }
+  //end of create role
   let mutetime = spl[2];
+  if(!mutetime) return message.reply("You didn't specify a time!");
 
-    tomute.addRole(muterole);
-    const MUTE_TIME = mutetime * 1000;
-    setTimeout(() => {
-        tomute.removeRole(muterole);
-    }, MUTE_TIME);
+  await(tomute.addRole(muterole.id));
+  message.reply(`<@${tomute.id}> has been muted for ${mutetime*60000}`);
 
-    message.channel.send(`*${message.author.username} forcechockes ${tomute} for ${MUTE_TIME / 60} seconds*`);
-    return;
+  setTimeout(function(){
+    tomute.removeRole(muterole.id);
+    message.channel.send(`<@${tomute.id}> has been unmuted!`);
+  }, mutetime*60000);
     }
     if(spl[0] === "kick") {
      console.log("A KICK??");
