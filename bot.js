@@ -13,7 +13,7 @@ client.on('ready', () => {
  
 
 client.on('message', message => { 
-    console.log(message.content)
+    console.log(message)
     if(message.author.bot) return;
     if(message.content.indexOf("b1") !== 0) return;
     const args = message.content.slice(2).trim().split(/ +/g);
