@@ -54,7 +54,7 @@ client.on('message', async message => {
   setTimeout(function(){
     tomute.removeRole(muterole.id);
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
-  }, ms(mutetime));
+  });
 
     }
     if(spl[0] === "kick") {
