@@ -15,9 +15,9 @@ client.on('message', message => {
     if(message.author.bot) return;
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
-    const spl = res.split(" ")
     if(res!== "b!") return;
     const mainmess = mes.substr(2);
+    const mainmess = res.split(" ");
     if(mainmess === "ping") {
      message.reply("Pong!");
     }
