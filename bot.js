@@ -53,25 +53,25 @@ client.on('message', message => {
   "fields": [
     {
       "name": "Kicked User",
-      "value": "${kUser} with ID ${kUser.id}"
+      "value": '${kUser} with ID ${kUser.id}'
     },
     {
       "name": "Kicked By",
-      "value": "<@${message.author.id}> with ID ${message.author.id}"
+      "value": '<@${message.author.id}> with ID ${message.author.id}'
     },
     {
       "name": "Kicked In",
-      "value": "${message.channel}",
+      "value": message.channel,
       "inline": true
     },
     {
       "name": "Time",
-      "value": "${message.createdAt}",
+      "value": message.createdAt,
       "inline": true
     },
     {
       "name": "Reason",
-      "value": "${kReason}",
+      "value": kReason,
       "inline": true
     }
   ]
