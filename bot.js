@@ -31,7 +31,7 @@ client.on('message', message => {
     }
     if(spl[0] === "kick") {
      console.log("A KICK??")
-     let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+     let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(spl[1]));
      if(!kUser) return message.channel.send("Can't find user!");
      let kReason = spl[2];
      if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
@@ -53,7 +53,7 @@ client.on('message', message => {
      kickChannel.send(kickEmbed);
     }
     if(spl[0] === "ban") {
-     let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+     let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(spl[1]));
      if(!bUser) return message.channel.send("Can't find user!");
      let bReason = spl[2];
      if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
