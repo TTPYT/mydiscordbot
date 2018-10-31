@@ -30,7 +30,7 @@ client.on('message', async message => {
      if(!muterole){
       try{
        muterole = await message.guild.createRole({
-        name: "muted",
+        name: "Muted",
         color: "#000000",
         permissions:[]
        })
