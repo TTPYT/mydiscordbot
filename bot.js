@@ -61,17 +61,17 @@ client.on('message', message => {
     },
     {
       "name": "Kicked In",
-      "value": message.channel,
+      "value": 'message.channel',
       "inline": true
     },
     {
       "name": "Time",
-      "value": message.createdAt,
+      "value": 'message.createdAt',
       "inline": true
     },
     {
       "name": "Reason",
-      "value": kReason,
+      "value": 'kReason',
       "inline": true
     }
   ]
