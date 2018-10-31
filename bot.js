@@ -19,7 +19,8 @@ client.on('message', message => {
     const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     if(command === "ping") {
-     message.reply("Pong!")
+     message.reply("Pong!");
+    }
     if(command === "kick") {
         if(!message.member.roles.some(r=>["Administrator", "Moderator"].includes(r.name)) )
             return message.reply("Sorry, you don't have permissions to use this!");
