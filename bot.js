@@ -49,7 +49,7 @@ client.on('message', async message => {
     tomute.addRole(muterole);
     const MUTE_TIME = mutetime * 1000;
     setTimeout(() => {
-        tomute.removeRole(muteRole);
+        tomute.removeRole(muterole);
     }, MUTE_TIME);
 
     message.channel.send(`*${message.author.username} forcechockes ${tomute} for ${MUTE_TIME / 60} seconds*`);
