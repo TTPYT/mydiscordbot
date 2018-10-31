@@ -54,7 +54,7 @@ client.on('message', async message => {
        tomute.removeRole(muterole.id);
        message.channel.send(`<@${tomute.id}> has been unmuted!`);
       }, mutetime*60000);
-    }
+    };
     if(spl[0] === "kick") {
      console.log("A KICK??");
      let kUser = message.guild.member(message.mentions.users.first());
@@ -106,7 +106,7 @@ client.on('message', async message => {
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
      kickChannel.send({ embed });
-    }
+    };
     if(spl[0] === "ban") {
      let bUser = message.guild.member(message.mentions.users.first());
      if(!bUser) return message.channel.send("Can't find user!");
@@ -160,7 +160,7 @@ client.on('message', async message => {
 
 
      return;
-    }
+    };
 };
 
  
