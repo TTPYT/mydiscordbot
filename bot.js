@@ -17,7 +17,7 @@ client.on('message', message => {
     const res = mes.substring(0, 2);
     if(res!== "b!") return;
     const mainmess = mes.substr(2);
-    const spl = res.split(" ");
+    const spl = mainmess.split(" ");
     if(mainmess === "ping") {
      message.reply("Pong!");
     }
