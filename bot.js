@@ -18,7 +18,7 @@ client.music.start({
     inlineEmbeds: true,
     logging: true,
     anyoneCanLeave: false,
-    youtubeKey: "AIzaSyBXgeFW5_j7T6bO4-NJdHN9H8UNJGeNZoM" // Set the api key used for YouTube.
+    youtubeKey: process.env.YOUTUBE // Set the api key used for YouTube.
 });
 
 client.on('ready', () => {
