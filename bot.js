@@ -6,8 +6,6 @@ require('discord.js-music');
  
 // in some command
 const playlist = message.guild.playlist;
-await playlist.add(message.content);
-return playlist.start(message.member.voiceChannel);
 
 client.on('ready', () => {
 
