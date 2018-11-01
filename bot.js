@@ -152,7 +152,7 @@ client.on('message', async message => {
     });
      return;
     };
-   if(spl[0]===history){
+   if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
     let userDatas = bkm[hUser.id];
     "You are currently level " + userDatas.level + ", with " + userDatas.points + " points."
