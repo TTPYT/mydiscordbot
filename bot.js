@@ -2,11 +2,6 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
-require('discord.js-music');
- 
-// in some command
-const playlist = message.guild.playlist;
-
 client.on('ready', () => {
 
     console.log('I am ready!');
