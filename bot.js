@@ -13,9 +13,6 @@ client.on('ready', () => {
 
 client.on('message', async message => { 
     if(message.author.bot) return;
-    var embed = new Discord.RichEmbed()
-          .addField("This is your title, it can hold 256 characters","Test")
-    message.channel.send({ embed });
     console.log(message.content)
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
@@ -155,10 +152,9 @@ client.on('message', async message => {
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
     let userDatas = bkm[hUser.id];
-    "You are currently level " + userDatas.level + ", with " + userDatas.points + " points."
     const embed = {
   "title": "~History~",
-  "description": "Oooh! Who's been naught?",
+  "description": "Oooh! Who's been naughty?",
   "color": 4903271,
   "footer": {
     "text": "Made by my man T1m#7219"
