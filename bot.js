@@ -104,7 +104,7 @@ client.on('message', async message => {
       "value": `<@${message.author.id}> with ID ${message.author.id}`
     },
     {
-      "name": "Bannd In",
+      "name": "Banned In",
       "value": `${message.channel}`,
       "inline": true
     },
