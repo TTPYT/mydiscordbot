@@ -185,9 +185,7 @@ client.on('message', async message => {
     }
   ]
 };
-    fs.writeFile("./bkm.json", JSON.stringify(bkm), (err) => {
-        if (err) console.error(err)
-    });
+    
     message.channel.send({ embed });
    };
 });
