@@ -6,7 +6,7 @@ class Bot extends Discord.Client {
     this.music = require("discord.js-musicbot-addon");
   }
 }
-const client = new Bot();
+const client = new Discord.Client();
  
 client.music.start({
     botPrefix: "b!",
