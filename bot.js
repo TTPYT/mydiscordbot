@@ -151,6 +151,11 @@ client.on('message', async message => {
     };
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
+    if (!bkm[bUser.id]) bkm[bUser.id] = {
+        Bans: 0,
+        Kicks: 0,
+        Mutes: 0
+    };
     let userDatas = bkm[hUser.id];
     const embed = {
   "title": "~History~",
