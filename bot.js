@@ -7,8 +7,8 @@ class Bot extends Discord.Client {
   }
 }
 const client = new Discord.Client();
- 
-client.music.start({
+const cli = new Bot();
+cli.music.start({
     botPrefix: "b!",
     maxQueueSize: 0,
     anyoneCanSkip: false,
