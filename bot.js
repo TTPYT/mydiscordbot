@@ -74,12 +74,12 @@ client.on('message', async message => {
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
      kickChannel.send({ embed });
-     if (!bkm[bUser.id]) bkm[bUser.id] = {
+     if (!bkm[kUser.id]) bkm[kUser.id] = {
         Bans: 0,
         Kicks: 0,
         Mutes: 0
     };
-     let userDatas = bkm[bUser.id];
+     let userDatas = bkm[kUser.id];
      userDatas.kicks++;
         fs.writeFile("./levels.json", JSON.stringify(levels), (err) => {
         if (err) console.error(err)
