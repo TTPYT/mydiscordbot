@@ -12,8 +12,7 @@ client.on('ready', () => {
 client.on('message', async message => { 
     if(message.author.bot) return;
     const Testembed = new Discord.RichEmbed()
-    .setTitle("This is your title, it can hold 256 characters")
-    .setAuthor("Author Name", "Hi");
+    .setTitle("This is your title, it can hold 256 characters");
     message.channel.send({ Testembed });
     console.log(message.content)
     const mes = message.content.toLowerCase();
