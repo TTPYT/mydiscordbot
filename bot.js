@@ -1,6 +1,25 @@
 const Discord = require('discord.js');
 
-const client = new Discord.Client();
+class Bot extends Discord.Client {
+  constructor(options) {
+    super(options);
+    this.music = require("discord.js-musicbot-addon");
+  }
+}
+const client = new Bot();
+ 
+client.music.start({
+    botPrefix: "b!",
+    maxQueueSize: 0,
+    anyoneCanSkip: false,
+    anyoneCanAdjust: false,
+    requesterName: true,
+    global: false,
+    inlineEmbeds: true,
+    logging: true,
+    anyoneCanLeave: false,
+    youtubeKey: "AIzaSyBXgeFW5_j7T6bO4-NJdHN9H8UNJGeNZoM" // Set the api key used for YouTube.
+});
 
 client.on('ready', () => {
 
