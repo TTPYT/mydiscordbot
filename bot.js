@@ -8,18 +8,6 @@ client.on('ready', () => {
 
 });
 
-class Bot extends Discord.Client {
-  constructor(options) {
-    super(options);
-    this.music = require("discord.js-musicbot-addon");
-  }
-}
-const client = new Bot();
- 
-client.music.start({
-  youtubeKey: "YouTubeAPIKeyHere" // Set the api key used for YouTube.
-});
- 
 
 client.on('message', async message => { 
     const Testembed = new Discord.RichEmbed()
