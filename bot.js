@@ -11,7 +11,7 @@ client.on('ready', () => {
 
 const { Database } = require('pg');
 
-const database = new Client({
+const database = new Database({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
