@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 const fs = require("fs");
-let bkm = JSON.parse(fs.readFileSync("./bkm.json", "utf8"));
 
 client.on('ready', () => {
 
@@ -10,9 +9,29 @@ client.on('ready', () => {
 
 });
 
+const { database } = require('pg');
+
+const database = new Client({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+database.connect();
+
 
 client.on('message', async message => { 
     if(message.author.bot) return;
+    client.query('CREATE TABLE IF NOT EXISTS `bkm` (
+	`id` int NOT NULL PRIMARY KEY,
+	`bans` numeric(9,2),
+	`kicks` numeric(9,2),
+	`mutes` numeric(9,2)
+);', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+    });
     console.log(message.content)
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
@@ -33,6 +52,16 @@ client.on('message', async message => {
      if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
+     if client.query(`SELECT ${kUser}
+FROM bkm;`)==='null' {
+         client.query(`INSERT INTO bkm (id, bans, kicks, mutes)
+    VALUES (${kUser.id}, 0, 1, 0);`, (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+      }
+         })
+     };
      const embed = {
   "title": "~Kick~",
   "description": "Oh no! Someone got kicked!",
@@ -74,16 +103,6 @@ client.on('message', async message => {
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
      kickChannel.send({ embed });
-     if (!bkm[kUser.id]) bkm[kUser.id] = {
-        Bans: 0,
-        Kicks: 0,
-        Mutes: 0
-    };
-     let userDatas = bkm[kUser.id];
-     userDatas.kicks++;
-        fs.writeFile("./levels.json", JSON.stringify(levels), (err) => {
-        if (err) console.error(err)
-    });
 
     };
     if(spl[0] === "ban") {
@@ -92,7 +111,16 @@ client.on('message', async message => {
      let bReason = spl[2];
      if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
      if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
-
+     if client.query(`SELECT ${bUser}
+FROM bkm;`)==='null'{
+         client.query(`INSERT INTO bkm (id, bans, kicks, mutes)
+    VALUES (${bUser.id}, 1, 0, 0);`, (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+      }
+         })
+     };
      const embed = {
   "title": "~Ban~",
   "description": "Oops! That's a ban!",
@@ -136,28 +164,29 @@ client.on('message', async message => {
 
      message.guild.member(bUser).ban(bReason);
      incidentchannel.send({ embed });
-
-     if (!bkm[bUser.id]) bkm[bUser.id] = {
-        Bans: 0,
-        Kicks: 0,
-        Mutes: 0
-    };
-     let userDatas = bkm[bUser.id];
-     userDatas.bans++;
-   fs.writeFile("./bkm.json", JSON.stringify(bkm), (err) => {
-        if (err) console.error(err)
-    });
      return;
     };
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
-    console.log(hUser);
-    if (!bkm[hUser.id]) bkm[hUser.id] = {
-        Bans: 0,
-        Kicks: 0,
-        Mutes: 0
-    };
-    let userDatas = bkm[hUser.id];
+    if client.query(`SELECT ${hUser.id}
+FROM bkm;`)==='null'{
+         client.query(`INSERT INTO bkm (id, bans, kicks, mutes)
+    VALUES (${hUser.id}, 0, 0, 0);`, (err, res) => {
+      if (err) throw err;
+      for (let row of res.rows) {
+        console.log(JSON.stringify(row));
+      }
+         })
+     };
+    let hBans = client.query(`SELECT bans
+FROM bkm
+WHERE ID=${hUser.id};`);
+    let hKicks = client.query(`SELECT kicks
+FROM bkm
+WHERE ID=${hUser.id};`);
+    let hMutes = client.query(`SELECT mutes
+FROM bkm
+WHERE ID=${hUser.id};`);
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
@@ -176,17 +205,17 @@ client.on('message', async message => {
     },
     {
       "name": "Bans",
-      "value": `${userDatas.bans}`,
+      "value": `${hBans}`,
       "inline": true
     },
     {
       "name": "Kicks",
-      "value": `${userDatas.kicks}`,
+      "value": `${hKicks}`,
       "inline": true
     },
     {
       "name": "Mutes",
-      "value": `${userDatas.mutes}`,
+      "value": `${hMutes}`,
       "inline": true
     }
   ]
@@ -199,5 +228,5 @@ client.on('message', async message => {
  
 
 // THIS  MUST  BE  THIS  WAY
-
+database.end();
 client.login(process.env.BOT_TOKEN);//where BOT_TOKEN is the token of our bot
