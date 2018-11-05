@@ -21,7 +21,7 @@ database.connect();
 
 client.on('message', async message => { 
     if(message.author.bot) return;
-    client.query("CREATE TABLE IF NOT EXISTS 'bkm' (
+    client.query("CREATE TABLE IF NOT EXISTS bkm (
 	'id' int NOT NULL PRIMARY KEY,
 	'bans' numeric(9,2),
 	'kicks' numeric(9,2),
