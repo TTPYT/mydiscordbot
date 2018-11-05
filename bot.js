@@ -151,6 +151,7 @@ client.on('message', async message => {
     };
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
+    console.log(hUser);
     if (!bkm[hUser.id]) bkm[hUser.id] = {
         Bans: 0,
         Kicks: 0,
