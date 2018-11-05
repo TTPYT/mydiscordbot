@@ -21,12 +21,12 @@ database.connect();
 
 client.on('message', async message => { 
     if(message.author.bot) return;
-    client.query('CREATE TABLE IF NOT EXISTS `bkm` (
-	`id` int NOT NULL PRIMARY KEY,
-	`bans` numeric(9,2),
-	`kicks` numeric(9,2),
-	`mutes` numeric(9,2)
-);', (err, res) => {
+    client.query("CREATE TABLE IF NOT EXISTS 'bkm' (
+	'id' int NOT NULL PRIMARY KEY,
+	'bans' numeric(9,2),
+	'kicks' numeric(9,2),
+	'mutes' numeric(9,2)
+);", (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
