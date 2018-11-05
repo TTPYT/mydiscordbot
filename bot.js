@@ -9,7 +9,7 @@ client.on('ready', () => {
 
 });
 
-const { database } = require('pg');
+const { Database } = require('pg');
 
 const database = new Client({
   connectionString: process.env.DATABASE_URL,
