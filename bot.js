@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-
+const ms = require("ms");
 const client = new Discord.Client();
 const fs = require("fs");
 
@@ -21,19 +21,6 @@ database.connect();
 
 client.on('message', async message => { 
     if(message.author.bot) return;
-    client.query("CREATE TABLE IF NOT EXISTS bkm (
-	idsd serial,
-	id numeric(9,2),
-	bans numeric(9,2),
-	kicks numeric(9,2),
-	mutes numeric(9,2),
-	PRIMARY KEY( idsd )
-);", (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-    });
     console.log(message.content)
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
@@ -47,23 +34,13 @@ client.on('message', async message => {
     if(spl[0] === "kick") {
      console.log("A KICK??");
      let kUser = message.guild.member(message.mentions.users.first());
-     console.log(spl[2]);
+     console.log(spl[2:]);
      if(!kUser) return message.channel.send("Can't find user!");
-     let kReason = spl[2];
+     let kReason = spl[2:];
      if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
      if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
-     if client.query(`SELECT ${kUser}
-FROM bkm;`)==='null' {
-         client.query(`INSERT INTO bkm (id, bans, kicks, mutes)
-    VALUES (${kUser.id}, 0, 1, 0);`, (err, res) => {
-      if (err) throw err;
-      for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-      }
-         })
-     };
      const embed = {
   "title": "~Kick~",
   "description": "Oh no! Someone got kicked!",
@@ -110,19 +87,9 @@ FROM bkm;`)==='null' {
     if(spl[0] === "ban") {
      let bUser = message.guild.member(message.mentions.users.first());
      if(!bUser) return message.channel.send("Can't find user!");
-     let bReason = spl[2];
+     let bReason = spl[2:];
      if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
      if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
-     if client.query(`SELECT ${bUser}
-FROM bkm;`)==='null'{
-         client.query(`INSERT INTO bkm (id, bans, kicks, mutes)
-    VALUES (${bUser.id}, 1, 0, 0);`, (err, res) => {
-      if (err) throw err;
-      for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-      }
-         })
-     };
      const embed = {
   "title": "~Ban~",
   "description": "Oops! That's a ban!",
@@ -170,25 +137,7 @@ FROM bkm;`)==='null'{
     };
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
-    if client.query(`SELECT ${hUser.id}
-FROM bkm;`)==='null'{
-         client.query(`INSERT INTO bkm (id, bans, kicks, mutes)
-    VALUES (${hUser.id}, 0, 0, 0);`, (err, res) => {
-      if (err) throw err;
-      for (let row of res.rows) {
-        console.log(JSON.stringify(row));
-      }
-         })
-     };
-    let hBans = client.query(`SELECT bans
-FROM bkm
-WHERE ID=${hUser.id};`);
-    let hKicks = client.query(`SELECT kicks
-FROM bkm
-WHERE ID=${hUser.id};`);
-    let hMutes = client.query(`SELECT mutes
-FROM bkm
-WHERE ID=${hUser.id};`);
+ 
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
@@ -224,6 +173,42 @@ WHERE ID=${hUser.id};`);
 };
     
     message.channel.send({ embed });
+   };
+   if(spl[0]==="mute") {
+    let tomute = message.guild.member(message.mentions.users.first());
+  if(!tomute) return message.reply("Couldn't find user.");
+  if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
+  let muterole = message.guild.roles.find(`name`, "muted");
+  //start of create role
+  if(!muterole){
+    try{
+      muterole = await message.guild.createRole({
+        name: "muted",
+        color: "#000000",
+        permissions:[]
+      })
+      message.guild.channels.forEach(async (channel, id) => {
+        await channel.overwritePermissions(muterole, {
+          SEND_MESSAGES: false,
+          ADD_REACTIONS: false
+        });
+      });
+    }catch(e){
+      console.log(e.stack);
+    }
+  }
+  //end of create role
+  let mutetime = args[2];
+  if(!mutetime) return message.reply("You didn't specify a time!");
+
+  await(tomute.addRole(muterole.id));
+  message.reply(`<@${tomute.id}> has been muted for ${ms(ms(mutetime))}`);
+
+  setTimeout(function(){
+    tomute.removeRole(muterole.id);
+    message.channel.send(`<@${tomute.id}> has been unmuted!`);
+  }, ms(mutetime));
+
    };
 });
 
