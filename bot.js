@@ -1,23 +1,12 @@
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
-const fs = require("fs");
 
 client.on('ready', () => {
 
     console.log('I am ready!');
 
 });
-
-const { Database } = require('pg');
-
-const database = new Database({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
-database.connect();
-
 
 client.on('message', async message => { 
     if(message.author.bot) return;
@@ -215,5 +204,4 @@ client.on('message', async message => {
  
 
 // THIS  MUST  BE  THIS  WAY
-database.end();
 client.login(process.env.BOT_TOKEN);//where BOT_TOKEN is the token of our bot
