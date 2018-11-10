@@ -34,9 +34,9 @@ client.on('message', async message => {
     if(spl[0] === "kick") {
      console.log("A KICK??");
      let kUser = message.guild.member(message.mentions.users.first());
-     console.log(spl[2:]);
      if(!kUser) return message.channel.send("Can't find user!");
-     let kReason = spl[2:];
+     let kReason = spl.slice(2);
+     console.log(kReason);
      if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
      if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
@@ -87,7 +87,7 @@ client.on('message', async message => {
     if(spl[0] === "ban") {
      let bUser = message.guild.member(message.mentions.users.first());
      if(!bUser) return message.channel.send("Can't find user!");
-     let bReason = spl[2:];
+     let bReason = spl.slice(2);
      if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
      if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
      const embed = {
@@ -198,7 +198,7 @@ client.on('message', async message => {
     }
   }
   //end of create role
-  let mutetime = args[2];
+  let mutetime = spl[2];
   if(!mutetime) return message.reply("You didn't specify a time!");
 
   await(tomute.addRole(muterole.id));
