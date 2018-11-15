@@ -21,7 +21,7 @@ client.on('message', async message => {
     }
     console.log(spl,spl[0])
     if(spl[0] === "purge") {
-        const deleteCount = parseInt(spl[1], 10);
+        const deleteCount = parseInt(spl[1], 10)+1;
     
     // Ooooh nice, combined conditions. <3
     if(!deleteCount || deleteCount < 2 || deleteCount > 100)
