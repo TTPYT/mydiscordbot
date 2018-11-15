@@ -18,7 +18,7 @@ client.on('message', async message => {
     const spl = mainmess.split(" ");
     if(mainmess === "ping") {
      message.reply("Pong!");
-    }
+    };
     console.log(spl,spl[0])
     if(spl[0] === "purge") {
         const deleteCount = parseInt(spl[1], 10)+1;
@@ -31,7 +31,7 @@ client.on('message', async message => {
     const fetched = await message.channel.fetchMessages({limit: deleteCount});
     message.channel.bulkDelete(fetched)
       .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
-    }
+    };
     if(spl[0] === "kick") {
      console.log("A KICK??");
      let kUser = message.guild.member(message.mentions.users.first());
@@ -48,10 +48,6 @@ client.on('message', async message => {
   "color": 4903271,
   "footer": {
     "text": "Made by my man T1m#7219"
-  },
-  "author": {
-    "name": "Boneless Water",
-    "icon_url": "https://cdn.discordapp.com/attachments/314470306703998979/507223045136449536/52JC3VVE.png"
   },
   "fields": [
     {
@@ -97,10 +93,6 @@ client.on('message', async message => {
   "color": 4903271,
   "footer": {
     "text": "Made by my man T1m#7219"
-  },
-  "author": {
-    "name": "Boneless Water",
-    "icon_url": "https://cdn.discordapp.com/attachments/314470306703998979/507223045136449536/52JC3VVE.png"
   },
   "fields": [
     {
@@ -211,6 +203,49 @@ client.on('message', async message => {
   }, mutetime*60000);
 
    };
+  if(spl[0]==="help") {
+      const embed = {
+  "title": "~Help~",
+  "description": "Awwww. Does someone need help?",
+  "color": 4903271,
+  "footer": {
+    "text": "Made by my man T1m#7219"
+  },
+  "fields": [
+    {
+      "name": "Ban {@user}",
+      "value": "Bans someone (duh)",
+       "inline": true
+    },
+    {
+      "name": "Kick {@user}",
+      "value": "Kicks someone (obviously)",
+       "inline": true
+    },
+    {
+      "name": "Mute {@user} {time}",
+      "value": "Mutes someone for a time (you getting it yet?)",
+      "inline": true
+    },
+    {
+      "name": "Purge {number of messages}",
+      "value": "Removes {number of messages} messages",
+      "inline": true
+    },
+    {
+      "name": "History {@user}",
+      "value": "Shows the bans, kicks, and mutes of the user",
+      "inline": true
+    },
+    {
+      "name": "Prefix",
+      "value": "BTW the prefix is b! or B!",
+      "inline": true
+    }
+  ]
+};
+  message.channel.send({ embed });
+  };
 });
 
  
