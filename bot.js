@@ -20,6 +20,24 @@ client.on('message', async message => {
      message.reply("Pong!");
     }
     console.log(spl,spl[0])
+    if(spl[0] === "purge") {
+        let messagecount = parseInt(slp[1]) || 1;
+
+        var deletedMessages = -1;
+
+        message.channel.fetchMessages({limit: Math.min(messagecount + 1, 100)}).then(messages => {
+            messages.forEach(m => {
+                if (m.author.id == bot.user.id) {
+                    m.delete().catch(console.error);
+                    deletedMessages++;
+                }
+            });
+        }).then(() => {
+                if (deletedMessages === -1) deletedMessages = 0;
+                message.channel.send(`:white_check_mark: Purged \`${deletedMessages}\` messages.`)
+                    .then(m => m.delete(2000));
+        }).catch(console.error);
+    }
     if(spl[0] === "kick") {
      console.log("A KICK??");
      let kUser = message.guild.member(message.mentions.users.first());
