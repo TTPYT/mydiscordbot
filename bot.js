@@ -21,7 +21,7 @@ client.on('message', async message => {
     }
     console.log(spl,spl[0])
     if(spl[0] === "purge") {
-        let messagecount = parseInt(slp[1]) || 1;
+        let messagecount = parseInt(spl[1]) || 1;
 
         var deletedMessages = -1;
 
