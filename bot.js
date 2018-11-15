@@ -27,7 +27,7 @@ client.on('message', async message => {
 
         message.channel.fetchMessages({limit: Math.min(messagecount + 1, 100)}).then(messages => {
             messages.forEach(m => {
-                if (m.author.id == bot.user.id) {
+                if (m.author.id == client.user.id) {
                     m.delete().catch(console.error);
                     deletedMessages++;
                 }
