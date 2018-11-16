@@ -1,10 +1,16 @@
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
+const aws = require('aws-sdk');
+
+var BKM = new aws.S3({
+  accessKeyId: process.env.BKM,
+});
 
 client.on('ready', () => {
 
     console.log('I am ready!');
+    
 
 });
 
@@ -81,10 +87,10 @@ client.on('message', async message => {
      console.log(kUser, kReason)
      kickChannel.send({ embed });
      var kUserID = kUser.id;
-     if (process.env.BKM[kUserID] === undefined){
-        process.env.BKM[kUserID] = [0,1,0];
+     if (BKM[kUserID] === undefined){
+        BKM[kUserID] = [0,1,0];
      } else {
-        process.env.BKM[kUserID][1]=process.env.BKM[kUserID][1]+1;
+        BKM[kUserID][1]=BKM[kUserID][1]+1;
      };
     };
     if(spl[0] === "ban") {
@@ -133,24 +139,24 @@ client.on('message', async message => {
      message.guild.member(bUser).ban(bReason);
      incidentchannel.send({ embed });
      var bUserID = bUser.id;
-     if (process.env.BKM[bUserID] === undefined){
-        process.env.BKM[bUserID] = [1,0,0];
+     if (BKM[bUserID] === undefined){
+        BKM[bUserID] = [1,0,0];
      }else {
-        process.env.BKM[bUserID][0]=process.env.BKM[bUserID][0]+1;
+        BKM[bUserID][0]=BKM[bUserID][0]+1;
      };
      return;
     };
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
     var hUserID=hUser.id;
-    if (process.env.BKM[hUserID] === undefined){
-        process.env.BKM[hUserID] = [0,0,0];
+    if (BKM[hUserID] === undefined){
+        BKM[hUserID] = [0,0,0];
         console.log("creating history")
-        console.log(process.env.BKM)
+        console.log(BKM)
      };
-     var hBans = process.env.BKM[hUserID][0];
-     var hKicks = process.env.BKM[hUserID][1];
-     var hMutes = process.env.BKM[hUserID][2];
+     var hBans = BKM[hUserID][0];
+     var hKicks = BKM[hUserID][1];
+     var hMutes = BKM[hUserID][2];
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
@@ -222,10 +228,10 @@ client.on('message', async message => {
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, mutetime*60000);
      var tomuteID = tomute.id;
-     if (process.env.BKM[tomuteID] === undefined){
-        process.env.BKM[tomuteID] = [0,0,1];
+     if (BKM[tomuteID] === undefined){
+        BKM[tomuteID] = [0,0,1];
      } else {
-        process.env.BKM[tomuteID][1]=process.env.BKM.tomuteID[2]+1;
+        BKM[tomuteID][1]=BKM.tomuteID[2]+1;
      };
    };
   if(spl[0]==="help") {
