@@ -5,6 +5,8 @@ const client = new Discord.Client();
 client.on('ready', () => {
 
     console.log('I am ready!');
+    process.env.TEST_NUMB = 1
+    console.log(process.env.TEST_NUMB)
 
 });
 
