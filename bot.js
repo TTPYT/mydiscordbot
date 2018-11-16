@@ -82,9 +82,9 @@ client.on('message', async message => {
      kickChannel.send({ embed });
      var kUserID = kUser.id;
      if (process.env.BKM[kUserID] === undefined){
-        process.env.BKM.kUserID = [0,1,0];
+        process.env.BKM[kUserID] = [0,1,0];
      } else {
-        process.env.BKM.kUserID[1]=process.env.BKM.kUserID[1]+1;
+        process.env.BKM[kUserID][1]=process.env.BKM[kUserID][1]+1;
      };
     };
     if(spl[0] === "ban") {
@@ -134,9 +134,9 @@ client.on('message', async message => {
      incidentchannel.send({ embed });
      var bUserID = bUser.id;
      if (process.env.BKM[bUserID] === undefined){
-        process.env.BKM.bUserID = [1,0,0];
+        process.env.BKM[bUserID] = [1,0,0];
      }else {
-        process.env.BKM.bUserID[0]=process.env.BKM.bUserID[0]+1;
+        process.env.BKM[bUserID][0]=process.env.BKM[bUserID][0]+1;
      };
      return;
     };
@@ -146,9 +146,9 @@ client.on('message', async message => {
     if (process.env.BKM[hUserID] === undefined){
         process.env.BKM.hUserID = [0,0,0];
      };
-     var hBans = process.env.BKM.hUserID[0];
-     var hKicks = process.env.BKM.hUserID[1];
-     var hMutes = process.env.BKM.hUserID[2];
+     var hBans = process.env.BKM[hUserID][0];
+     var hKicks = process.env.BKM[hUserID][1];
+     var hMutes = process.env.BKM[hUserID][2];
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
@@ -221,9 +221,9 @@ client.on('message', async message => {
   }, mutetime*60000);
      var tomuteID = tomute.id;
      if (process.env.BKM[tomuteID] === undefined){
-        process.env.BKM.tomuteID = [0,0,1];
+        process.env.BKM[tomuteID] = [0,0,1];
      } else {
-        process.env.BKM.tomuteID[1]=process.env.BKM.tomuteID[2]+1;
+        process.env.BKM[tomuteID][1]=process.env.BKM.tomuteID[2]+1;
      };
    };
   if(spl[0]==="help") {
