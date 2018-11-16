@@ -5,8 +5,6 @@ const client = new Discord.Client();
 client.on('ready', () => {
 
     console.log('I am ready!');
-    process.env.TEST_NUMB = 1
-    console.log(process.env.TEST_NUMB)
 
 });
 
@@ -23,6 +21,7 @@ client.on('message', async message => {
     };
     console.log(spl,spl[0])
     if(spl[0] === "purge") {
+        if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
         const deleteCount = parseInt(spl[1], 10)+1;
     
     // Ooooh nice, combined conditions. <3
@@ -40,8 +39,8 @@ client.on('message', async message => {
      if(!kUser) return message.channel.send("Can't find user!");
      let kReason = spl.slice(2);
      console.log(kReason);
-     if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send("No can do pal!");
-     if(kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
+     if(!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("No can do pal!");
+     if(kUser.hasPermission("KICK_MEMBERS")) return message.channel.send("That person can't be kicked!");
      let kickChannel = message.guild.channels.find('name', "incidents");
      if(!kickChannel) return message.channel.send("Can't find incidents channel.");
      const embed = {
@@ -81,14 +80,19 @@ client.on('message', async message => {
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
      kickChannel.send({ embed });
-
+     if kUser.id in process.env.BKM{
+        let process.env.BKM[kUser.id] = [0,1,0];
+     };
+     else {
+        let process.env.BKM[kUser.id][1]=process.env.BKM[kUser.id][1]+1
+     };
     };
     if(spl[0] === "ban") {
      let bUser = message.guild.member(message.mentions.users.first());
      if(!bUser) return message.channel.send("Can't find user!");
      let bReason = spl.slice(2);
-     if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.channel.send("No can do pal!");
-     if(bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person can't be kicked!");
+     if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send("No can do pal!");
+     if(bUser.hasPermission("BAN_MEMBERS")) return message.channel.send("That person can't be kicked!");
      const embed = {
   "title": "~Ban~",
   "description": "Oops! That's a ban!",
@@ -128,11 +132,22 @@ client.on('message', async message => {
 
      message.guild.member(bUser).ban(bReason);
      incidentchannel.send({ embed });
+     if bUser.id in process.env.BKM{
+        let process.env.BKM[bUser.id] = [1,0,0];
+     };
+     else {
+        let process.env.BKM[bUser.id][0]=process.env.BKM[bUser.id][0]+1
+     };
      return;
     };
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
- 
+    if hUser.id in process.env.BKM{
+        let process.env.BKM[hUser.id] = [0,0,0];
+     };
+     let hBans = process.env.BKM[hUser.id][0]
+     let hKicks = process.env.BKM[hUser.id][1]
+     let hMutes = process.env.BKM[hUser.id][2]
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
@@ -172,7 +187,7 @@ client.on('message', async message => {
    if(spl[0]==="mute") {
     let tomute = message.guild.member(message.mentions.users.first());
   if(!tomute) return message.reply("Couldn't find user.");
-  if(tomute.hasPermission("MANAGE_MESSAGES")) return message.reply("Can't mute them!");
+  if(tomute.hasPermission("MUTE_MEMBERS")) return message.reply("Can't mute them!");
   let muterole = message.guild.roles.find(`name`, "muted");
   //start of create role
   if(!muterole){
@@ -203,7 +218,12 @@ client.on('message', async message => {
     tomute.removeRole(muterole.id);
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, mutetime*60000);
-
+     if tomute.id in process.env.BKM{
+        let process.env.BKM[tomute.id] = [0,0,1];
+     };
+     else {
+        let process.env.BKM[tomute.id][1]=process.env.BKM[tomute.id][2]+1
+     };
    };
   if(spl[0]==="help") {
       const embed = {
