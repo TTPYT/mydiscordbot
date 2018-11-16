@@ -81,7 +81,7 @@ client.on('message', async message => {
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
      kickChannel.send({ embed });
-     if BKM[kUser.id] != undefined{
+     if (BKM[kUser.id] === undefined){
         var BKM[kUser.id] = [0,1,0];
      };
      else {
@@ -133,7 +133,7 @@ client.on('message', async message => {
 
      message.guild.member(bUser).ban(bReason);
      incidentchannel.send({ embed });
-     if BKM[bUser.id] != undefined{
+     if (BKM[bUser.id] === undefined){
         var BKM[bUser.id] = [1,0,0];
      };
      else {
@@ -219,7 +219,7 @@ client.on('message', async message => {
     tomute.removeRole(muterole.id);
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, mutetime*60000);
-     if BKM[tomute.id] != undefined{
+     if (BKM[tomute.id] === undefined){
         var BKM[tomute.id] = [0,0,1];
      };
      else {
