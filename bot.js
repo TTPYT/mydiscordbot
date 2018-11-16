@@ -5,6 +5,7 @@ const client = new Discord.Client();
 client.on('ready', () => {
 
     console.log('I am ready!');
+    var BKM = process.env.BKM
 
 });
 
@@ -80,11 +81,11 @@ client.on('message', async message => {
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
      kickChannel.send({ embed });
-     if process.end.BKM[kUser.id] != undefined{
-        let process.env.BKM[kUser.id] = [0,1,0];
+     if BKM[kUser.id] != undefined{
+        var BKM[kUser.id] = [0,1,0];
      };
      else {
-        let process.env.BKM[kUser.id][1]=process.env.BKM[kUser.id][1]+1;
+        var BKM[kUser.id][1]=process.env.BKM[kUser.id][1]+1;
      };
     };
     if(spl[0] === "ban") {
@@ -132,11 +133,11 @@ client.on('message', async message => {
 
      message.guild.member(bUser).ban(bReason);
      incidentchannel.send({ embed });
-     if process.end.BKM[bUser.id] != undefined{
-        let process.env.BKM[bUser.id] = [1,0,0];
+     if BKM[bUser.id] != undefined{
+        var BKM[bUser.id] = [1,0,0];
      };
      else {
-        let process.env.BKM[bUser.id][0]=process.env.BKM[bUser.id][0]+1
+        var BKM[bUser.id][0]=process.env.BKM[bUser.id][0]+1
      };
      return;
     };
@@ -145,9 +146,9 @@ client.on('message', async message => {
     if hUser.id in process.env.BKM{
         let process.env.BKM[hUser.id] = [0,0,0];
      };
-     let hBans = process.env.BKM[hUser.id][0]
-     let hKicks = process.env.BKM[hUser.id][1]
-     let hMutes = process.env.BKM[hUser.id][2]
+     var hBans = BKM[hUser.id][0]
+     var hKicks = BKM[hUser.id][1]
+     var hMutes = BKM[hUser.id][2]
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
@@ -218,11 +219,11 @@ client.on('message', async message => {
     tomute.removeRole(muterole.id);
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, mutetime*60000);
-     if process.end.BKM[tomute.id] != undefined{
-        let process.env.BKM[tomute.id] = [0,0,1];
+     if BKM[tomute.id] != undefined{
+        var BKM[tomute.id] = [0,0,1];
      };
      else {
-        let process.env.BKM[tomute.id][1]=process.env.BKM[tomute.id][2]+1
+        var BKM[tomute.id][1]=process.env.BKM[tomute.id][2]+1
      };
    };
   if(spl[0]==="help") {
