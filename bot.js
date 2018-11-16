@@ -5,7 +5,6 @@ const client = new Discord.Client();
 client.on('ready', () => {
 
     console.log('I am ready!');
-    var BKM = process.env.BKM
 
 });
 
@@ -82,11 +81,11 @@ client.on('message', async message => {
      console.log(kUser, kReason)
      kickChannel.send({ embed });
      var kUserID = kUser.id
-     if (BKM[kUserID] === undefined){
-        var BKM.kUserID = [0,1,0];
+     if (process.env.BKM[kUserID] === undefined){
+        var process.env.BKM.kUserID = [0,1,0];
      };
      else {
-        var BKM.kUserID[1]=BKM.kUserID[1]+1;
+        var process.env.BKM.kUserID[1]=process.env.BKM.kUserID[1]+1;
      };
     };
     if(spl[0] === "ban") {
@@ -135,11 +134,11 @@ client.on('message', async message => {
      message.guild.member(bUser).ban(bReason);
      incidentchannel.send({ embed });
      var bUserID = bUser.id
-     if (BKM[bUserID] === undefined){
-        var BKM[bUserID] = [1,0,0];
+     if (process.env.BKM[bUserID] === undefined){
+        var process.env.BKM.bUserID = [1,0,0];
      };
      else {
-        var BKM[bUserID][0]=BKM[bUserID][0]+1
+        var process.env.BKM.bUserID[0]=process.env.BKM.bUserID[0]+1
      };
      return;
     };
@@ -222,11 +221,11 @@ client.on('message', async message => {
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, mutetime*60000);
      var tomuteID = tomute.id
-     if (BKM[tomuteID] === undefined){
-        var BKM.tomuteID = [0,0,1];
+     if (process.env.BKM[tomuteID] === undefined){
+        var process.env.BKM.tomuteID = [0,0,1];
      };
      else {
-        var BKM.tomuteID[1]=BKM.tomuteID[2]+1
+        var process.env.BKM.tomuteID[1]=process.env.BKM.tomuteID[2]+1
      };
    };
   if(spl[0]==="help") {
