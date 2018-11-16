@@ -80,7 +80,7 @@ client.on('message', async message => {
      message.guild.member(kUser).kick(kReason);
      console.log(kUser, kReason)
      kickChannel.send({ embed });
-     var kUserID = kUser.id
+     var kUserID = kUser.id;
      if (process.env.BKM[kUserID] === undefined){
         process.env.BKM.kUserID = [0,1,0];
      } else {
@@ -132,23 +132,23 @@ client.on('message', async message => {
 
      message.guild.member(bUser).ban(bReason);
      incidentchannel.send({ embed });
-     var bUserID = bUser.id
+     var bUserID = bUser.id;
      if (process.env.BKM[bUserID] === undefined){
-        var process.env.BKM.bUserID = [1,0,0];
-     };
-     else {
-        var process.env.BKM.bUserID[0]=process.env.BKM.bUserID[0]+1
+        process.env.BKM.bUserID = [1,0,0];
+     }else {
+        process.env.BKM.bUserID[0]=process.env.BKM.bUserID[0]+1;
      };
      return;
     };
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
-    if hUser.id in process.env.BKM{
-        let process.env.BKM[hUser.id] = [0,0,0];
+    var hUserID=hUser.id;
+    if hUserID in process.env.BKM{
+        process.env.BKM.hUserID = [0,0,0];
      };
-     var hBans = BKM[hUser.id][0]
-     var hKicks = BKM[hUser.id][1]
-     var hMutes = BKM[hUser.id][2]
+     var hBans = BKM.hUser.id.[0];
+     var hKicks = BKM.hUser.id.[1];
+     var hMutes = BKM.hUser.id.[2];
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
@@ -219,12 +219,11 @@ client.on('message', async message => {
     tomute.removeRole(muterole.id);
     message.channel.send(`<@${tomute.id}> has been unmuted!`);
   }, mutetime*60000);
-     var tomuteID = tomute.id
+     var tomuteID = tomute.id;
      if (process.env.BKM[tomuteID] === undefined){
-        var process.env.BKM.tomuteID = [0,0,1];
-     };
-     else {
-        var process.env.BKM.tomuteID[1]=process.env.BKM.tomuteID[2]+1
+        process.env.BKM.tomuteID = [0,0,1];
+     } else {
+        process.env.BKM.tomuteID[1]=process.env.BKM.tomuteID[2]+1;
      };
    };
   if(spl[0]==="help") {
