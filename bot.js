@@ -146,9 +146,9 @@ client.on('message', async message => {
     if (process.env.BKM[hUserID] === undefined){
         process.env.BKM.hUserID = [0,0,0];
      };
-     var hBans = BKM.hUser.id.[0];
-     var hKicks = BKM.hUser.id.[1];
-     var hMutes = BKM.hUser.id.[2];
+     var hBans = process.env.BKM.hUserID[0];
+     var hKicks = process.env.BKM.hUserID[1];
+     var hMutes = process.env.BKM.hUserID[2];
     const embed = {
   "title": "~History~",
   "description": "Oooh! Who's been naughty?",
