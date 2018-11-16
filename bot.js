@@ -83,8 +83,7 @@ client.on('message', async message => {
      var kUserID = kUser.id
      if (process.env.BKM[kUserID] === undefined){
         process.env.BKM.kUserID = [0,1,0];
-     };
-     else {
+     } else {
         process.env.BKM.kUserID[1]=process.env.BKM.kUserID[1]+1;
      };
     };
