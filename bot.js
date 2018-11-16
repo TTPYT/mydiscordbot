@@ -82,10 +82,10 @@ client.on('message', async message => {
      kickChannel.send({ embed });
      var kUserID = kUser.id
      if (process.env.BKM[kUserID] === undefined){
-        var process.env.BKM.kUserID = [0,1,0];
+        process.env.BKM.kUserID = [0,1,0];
      };
      else {
-        var process.env.BKM.kUserID[1]=process.env.BKM.kUserID[1]+1;
+        process.env.BKM.kUserID[1]=process.env.BKM.kUserID[1]+1;
      };
     };
     if(spl[0] === "ban") {
