@@ -146,6 +146,7 @@ client.on('message', async message => {
     if (process.env.BKM[hUserID] === undefined){
         process.env.BKM[hUserID] = [0,0,0];
         console.log("creating history")
+        console.log(process.env.BKM)
      };
      var hBans = process.env.BKM[hUserID][0];
      var hKicks = process.env.BKM[hUserID][1];
