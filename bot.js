@@ -143,7 +143,7 @@ client.on('message', async message => {
    if(spl[0]==="history"){
     let hUser = message.guild.member(message.mentions.users.first());
     var hUserID=hUser.id;
-    if hUserID in process.env.BKM{
+    if (process.env.BKM[hUserID] === undefined){
         process.env.BKM.hUserID = [0,0,0];
      };
      var hBans = BKM.hUser.id.[0];
