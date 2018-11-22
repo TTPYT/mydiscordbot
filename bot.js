@@ -11,7 +11,7 @@ pool.query('SELECT * FROM bkm', (err, res) => {
   if (err) {
     pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL);')
   }
-  console.log(process.senv.DATABASE_URL));
+  console.log(process.senv.DATABASE_URL);
   pool.end();
 });
 client.on('ready', () => {
@@ -26,6 +26,14 @@ client.on('message', async message => {
     console.log(message.content)
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
+    console.log(message.channel)
+    if (message.channel!=="music-bot-commands" || message.channel!=="bot-commands") {
+      if(res===";;" || mes.substring(0,1)==="1") {
+        const fetched = await message.channel.fetchMessages({limit: 2});
+        message.channel.bulkDelete(fetched)
+          .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
+      };
+    };
     if(res!== "b!") return;
     const mainmess = mes.substr(2);
     const spl = mainmess.split(" ");
