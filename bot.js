@@ -5,15 +5,15 @@ const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABSE_URL,
   ssl: true
-});
-pool.connect();
+})
+pool.connect()
 pool.query('SELECT * FROM bkm', (err, res) => {
   if (err) {
     pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL);')
   }
   console.log(process.env.DATABASE_URL);
   pool.end();
-});
+})
 client.on('ready', () => {
 
     console.log('I am ready!');
@@ -27,12 +27,15 @@ client.on('message', async message => {
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
     console.log(message.channel.name)
-    if (message.channel.name!=="music-bot-commands" || message.channel.name!=="bot-commands") {
-      if(res===";;" || mes.substring(0,1)==="!") {
+    if (message === "despacito") {
+      message.reply("you are a true man of pure interlect. https://t0.rbxcdn.com/1d5a411fd5528f7fcc345e53fc727704"
+    };
+    if(res===";;" || mes.substring(0,1)==="!") {
+       if (message.channel.name!=="music-bot-commands" || message.channel.name!=="bot-commands") {
         const fetched = await message.channel.fetchMessages({limit: 2});
         message.channel.bulkDelete(fetched)
           .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
-        client.users.get("302760158436655106").sendMessage(`${message.author} did a bot command in ${message.channel.name}! Cleaned it up tho`)
+        client.users.get("283343035457077250").sendMessage(`${message.author} did a bot command in ${message.channel.name}! Cleaned it up tho`)
       };
     };
     if(res!== "b!") return;
@@ -70,7 +73,7 @@ client.on('message', async message => {
   "description": "Oh no! Someone got kicked!",
   "color": 4903271,
   "footer": {
-    "text": "Made by my man T1m#7219"
+    "text": "01000001 01101100 01101100 00100000 01101000 01100001 01101001 01101100 00100000 01101100 01101111 01110010 01100100 00100000 01010100 00110001 01101101"
   },
   "fields": [
     {
@@ -120,7 +123,7 @@ client.on('message', async message => {
   "description": "Oops! That's a ban!",
   "color": 4903271,
   "footer": {
-    "text": "Made by my man T1m#7219"
+    "text": "01000001 01101100 01101100 00100000 01101000 01100001 01101001 01101100 00100000 01101100 01101111 01110010 01100100 00100000 01010100 00110001 01101101"
   },
   "fields": [
     {
@@ -178,7 +181,7 @@ client.on('message', async message => {
   "description": "Oooh! Who's been naughty?",
   "color": 4903271,
   "footer": {
-    "text": "Made by my man T1m#7219"
+    "text": "01000001 01101100 01101100 00100000 01101000 01100001 01101001 01101100 00100000 01101100 01101111 01110010 01100100 00100000 01010100 00110001 01101101"
   },
   "author": {
     "name": "Boneless Water",
