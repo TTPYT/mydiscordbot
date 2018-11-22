@@ -9,7 +9,7 @@ const pool = new Pool({
 pool.connect();
 pool.query('SELECT * FROM bkm', (err, res) => {
   if (err) {
-    pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL);')
+    pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL), (err, res);')
   }
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
