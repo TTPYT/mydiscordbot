@@ -26,8 +26,8 @@ client.on('message', async message => {
     console.log(message.content)
     const mes = message.content.toLowerCase();
     const res = mes.substring(0, 2);
-    console.log(message.channel)
-    if (message.channel!=="music-bot-commands" || message.channel!=="bot-commands") {
+    console.log(message.channel.name)
+    if (message.channel.name!=="music-bot-commands" || message.channel.name!=="bot-commands") {
       if(res===";;" || mes.substring(0,1)==="1") {
         const fetched = await message.channel.fetchMessages({limit: 2});
         message.channel.bulkDelete(fetched)
