@@ -12,7 +12,7 @@ pool.query('SELECT * FROM bkm', (err, res) => {
     pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL);')
   }
   console.log(JSON.stringify(pool.query('SELECT * FROM bkm')));
-  client.end();
+  pool.end();
 });
 client.on('ready', () => {
 
