@@ -1,22 +1,25 @@
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
-const { Pool } = repuire('pg');
+const { Pool } = require('pg');
 const pool = new Pool({
   connectionString: process.env.DATABSE_URL,
   ssl: true
 });
-.get('/db', async (req, res) => {
-  try {
-    const cli = await pool.connect()
-    const result = await cli.query('SELECT * FROM test_table')
-    const results = { 'results': (result) ? result.rows : null};
-    res.render('pages/db', results);
-    client.release();
-  } catch (err) {
-    console.error(err)
-    res.send("Error "+ err);
+pool.connect();
+pool.query('SELECT * FROM bkm', (err, res) => {
+  if (err) {
+    pool.query('CREATE TABLE bkm (
+                  id integer NOT NULL,
+                  bans integer NOT NULL,
+                  kicks integer NOT NULL,
+                  mutes integer NOT NULL
+               );')
   }
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
 });
 client.on('ready', () => {
 
