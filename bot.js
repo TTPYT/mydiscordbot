@@ -11,7 +11,7 @@ pool.query('SELECT * FROM bkm', (err, res) => {
   if (err) {
     pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL);')
   }
-  console.log(process.senv.DATABASE_URL);
+  console.log(process.env.DATABASE_URL);
   pool.end();
 });
 client.on('ready', () => {
