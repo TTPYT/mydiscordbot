@@ -1,12 +1,23 @@
 const Discord = require('discord.js');
 
 const client = new Discord.Client();
-const aws = require('aws-sdk');
-
-var BKM = new aws.S3({
-  accessKeyId: process.env.BKM,
+const { Pool } = repuire('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABSE_URL,
+  ssl: true
 });
-
+.get('/db', async (req, res) => {
+  try {
+    const cli = await pool.connect()
+    const result = await cli.query('SELECT * FROM test_table')
+    const results = { 'results': (result) ? result.rows : null};
+    res.render('pages/db', results);
+    client.release();
+  } catch (err) {
+    console.error(err)
+    res.send("Error "+ err);
+  }
+});
 client.on('ready', () => {
 
     console.log('I am ready!');
