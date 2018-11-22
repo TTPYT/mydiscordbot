@@ -28,7 +28,7 @@ client.on('message', async message => {
     const res = mes.substring(0, 2);
     console.log(message.channel.name)
     if (message === "despacito") {
-      message.reply("you are a true man of pure interlect. https://t0.rbxcdn.com/1d5a411fd5528f7fcc345e53fc727704"
+      message.reply("you are a true man of pure interlect. https://t0.rbxcdn.com/1d5a411fd5528f7fcc345e53fc727704")
     };
     if(res===";;" || mes.substring(0,1)==="!") {
        if (message.channel.name!=="music-bot-commands" || message.channel.name!=="bot-commands") {
