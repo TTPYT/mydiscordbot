@@ -28,10 +28,11 @@ client.on('message', async message => {
     const res = mes.substring(0, 2);
     console.log(message.channel.name)
     if (message.channel.name!=="music-bot-commands" || message.channel.name!=="bot-commands") {
-      if(res===";;" || mes.substring(0,1)==="1") {
+      if(res===";;" || mes.substring(0,1)==="!") {
         const fetched = await message.channel.fetchMessages({limit: 2});
         message.channel.bulkDelete(fetched)
           .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
+        302760158436655106.send(`${message.author} did a bot command in ${message.channel.name}! Cleaned it up tho`)
       };
     };
     if(res!== "b!") return;
