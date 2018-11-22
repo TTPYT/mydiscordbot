@@ -7,17 +7,12 @@ const pool = new Pool({
   ssl: true
 })
 pool.connect()
-pool.query('SELECT * FROM bkm', (err, res) => {
-  if (err) {
-    pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL);')
-  }
-  console.log(process.env.DATABASE_URL);
-  pool.end();
-})
+  .then(() => cpool.query('SELECT * FROM bkm'))
+  .catch(() => pool.query('CREATE TABLE bkm (id integer NOT NULL, bans integer NOT NULL, kicks integer NOT NULL, mutes integer NOT NULL);'))
 client.on('ready', () => {
 
     console.log('I am ready!');
-    
+    console.log(process.env.DATABASE_URL)
 
 });
 
